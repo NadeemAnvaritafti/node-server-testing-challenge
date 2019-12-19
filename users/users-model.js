@@ -24,15 +24,20 @@ function add(user) {
 
 
 function remove(id) {
+    let deletedUser = {};
+    db('users')
+    .where({ id })
+    .first()
+    .then(user => {
+        deletedUser = user; 
+    });
     return db('users')
         .where('id', id)
         .del()
         .then(count => {
             if (count > 0) {
-                return db('users')
-                    .where({ id })
-                    .first();
+                return deletedUser;
             }
-        })
+        });
 
 }

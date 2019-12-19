@@ -31,11 +31,10 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const id = req.params.id;
-
     Users.remove(id)
     .then(deleted => {
         if (deleted) {
-            res.json(deleted);
+            res.status(200).json(deleted);
         } else {
             res.status(404).json({ message: 'Could not find user with that id' });
         }
